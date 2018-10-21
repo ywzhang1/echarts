@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ajax请求json</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+</head>
+    <style type="text/css">
+
+    </style>
+<body>
+    <div id="main" style="height:400px;width: 100%;overflow: hidden;"></div>
+    <script src="jquery-2.1.0.min.js"></script>
+    <script src="echarts.js"></script>
+    <script type="text/javascript">
+var myChart = echarts.init(document.getElementById('main'));
+var xAxisData = [];
+var data1 = [{value:360},{value:360},{value:360},{value:360},{value:360, label:{normal:{color:'red'}}},{value:360}];
+var data2 = ['-','-','-','-',120,180];
+var dataReult = ['-','-','-','-',480,660];
+
+var data3 = ['-',960,1320,'-','-','-'];
+var data4 = [1200,'-','-',289,'-','-'];
+
+var itemStyle1 = {
+    normal: {
+         color:'rgba(255,255,255,0)'
+    }
+};
+var itemStyle2 = {
+    normal: {
+          color:'rgba(0,0,0,0.5)'
+    }
+};
+var itemStyle3 = {
+    normal: {
+          color:'rgba(0,255,255,0.5)'
+    }
+};
+var itemStyle4 = {
+    normal: {
+          color:'rgba(250,250,0,0.5)'
+    }
+};
+
+option = {
+    backgroundColor: '#eee',
+    legend: {
+        data: ['-', 'bar2','bar3','bar4'],
+        align: 'left',
+        selectedMode:false,
+        left: 50
+    },
+    grid:{
+       right:50
+    },
+    tooltip: {
+        show:false
+    },
+    xAxis: {
+        axisLabel:{interval:0},
+        data: xAxisData,
+        name: '',
+        silent: false,
+        axisLine: {onZero: true},
+        splitLine: {show: false},
+        splitArea: {show: false}
+    },
+    yAxis: {
+        inverse: true,
+        position:'right',
+        type:'value',
+        splitArea: {show: false},
+        min:360,
+        max:1440,
+        splitNumber:18,
+        interval:60,
+        axisLabel : {
+               formatter: function (value) {
+                           return returnTime(value);
+                }
+
+        },
+        axisLine:{
+            show:false
+        },
+        axisTick:{
+            show:false
+        }
+    },
+    series: [
+        {
+            name: 'bar1',
+            type: 'bar',
+            stack: 'one',
+            itemStyle: itemStyle1,
+            data: data1,
+            label:{
+                normal:{
+                    show:true,
+                    position:'bottom',
+                    color:'#000',
+                    offset:[0,-20],
+                    formatter: function (val) {
+                       return returnTime(data1[val.dataIndex].value);
+                    }
+                }
+            }
+        },
+        {
+            name: 'bar2',
+            type: 'bar',
+            stack: 'one',
+            itemStyle: itemStyle2,
+            data: data2,
+            label:{
+                normal:{
+                    show:true,
+                    position:'bottom',
+                    color:'#000',
+                    formatter: function (val) {
+                       return returnTime(dataReult[val.dataIndex]);
+                    }
+                }
+                
+            }
+        }
+        ,
+        {
+            name: 'bar3',
+            type: 'bar',
+            stack: 'one',
+            itemStyle: itemStyle3,
+            data: data3,
+            label:{
+                normal:{
+                    show:true,
+                    position:'bottom',
+                    color:'#000',
+                }
+            }
+        }
+        ,
+        {
+            name: 'bar4',
+            type: 'bar',
+            stack: 'one',
+            itemStyle: itemStyle4,
+            data: data4,
+            label:{
+                normal:{
+                    show:true,
+                    position:'bottom',
+                    color:'#000',
+                }
+            }
+        }
+    ]
+};
+myChart.setOption(option);
+
+
+function returnTime(value){
+   var h = parseInt(value / 60);
+   var m = parseInt(value % 60);
+   if (h < 0 || h > 24)
+    return "";
+    if (m < 10){
+        m = '0' + m;
+    }
+    return h + ':' + m;
+}
+    </script>
+
+</body>
+</html>
